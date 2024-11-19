@@ -1,6 +1,7 @@
 import React from "react";
 import "./TaskColumn.css";
 import Todo from "../assets/target.png";
+import TaskCard from "./TaskCard";
 
 const TaskColumn = ({ columnName, icon }) => {
   return (
@@ -9,6 +10,7 @@ const TaskColumn = ({ columnName, icon }) => {
         <img className="task_column_icon" src={icon} alt=""></img>
         {columnName}
       </h2>
+      <TaskCard />
     </section>
   );
 };
