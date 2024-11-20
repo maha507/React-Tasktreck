@@ -2,12 +2,29 @@ import React, { useState } from "react";
 import "./TaskForm.css";
 import Tag from "./Tag";
 
-const TaskForm = () => {
+const TaskForm = ({ setTasks }) => {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "todo",
+    tags: [],
   });
 
+  const checkTag = (tag) => {
+    return taskData.tags.some((item) => item === tag);
+  };
+  const selectTag = (tag) => {
+    if (taskData.tags.some((item) => item === tag)) {
+      const filterTags = taskData.tags.filter((item) => item !== tag);
+      setTaskData((prev) => {
+        return { ...prev, tags: filterTags };
+      });
+    } else {
+      setTaskData((prev) => {
+        return { ...prev, tags: [...prev.tags, tag] };
+      });
+    }
+  };
+  console.log(taskData.tags);
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -19,16 +36,10 @@ const TaskForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(taskData);
+    setTasks((prev) => {
+      return [...prev, taskData];
+    });
   };
-
-  console.log(taskData);
-  // const [status, setStatus] = useState("todo");
-  // const handleTaskChange = (e) => {
-  //   setTask(e.target.value);
-  // };
-  // const handleStatusChange = (e) => {
-  //   setStatus(e.target.value);
-  // };
 
   return (
     <header className="app_header">
@@ -42,10 +53,26 @@ const TaskForm = () => {
         />
         <div className="task_form_bottom_line">
           <div>
-            <Tag tagName="Html" />
-            <Tag tagName="JavaScript" />
-            <Tag tagName="Css" />
-            <Tag tagName="React" />
+            <Tag
+              tagName="Html"
+              selectTag={selectTag}
+              selected={checkTag("Html")}
+            />
+            <Tag
+              tagName="JavaScript"
+              selectTag={selectTag}
+              selected={checkTag("JavaScript")}
+            />
+            <Tag
+              tagName="Css"
+              selectTag={selectTag}
+              selected={checkTag("Css")}
+            />
+            <Tag
+              tagName="React"
+              selectTag={selectTag}
+              selected={checkTag("React")}
+            />
           </div>
           <div>
             <select
