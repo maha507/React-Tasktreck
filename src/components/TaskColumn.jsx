@@ -3,7 +3,7 @@ import "./TaskColumn.css";
 import Todo from "../assets/target.png";
 import TaskCard from "./TaskCard";
 
-const TaskColumn = ({ title, icon, tasks, status }) => {
+const TaskColumn = ({ title, icon, tasks, status, handleDelete }) => {
   return (
     <section className="app_column">
       <h2 className="task_column_heading">
@@ -13,10 +13,15 @@ const TaskColumn = ({ title, icon, tasks, status }) => {
       {tasks.map(
         (task, index) =>
           task.status === status && (
-            <TaskCard key={index} columnName={task.task} tags={task.tags} />
+            <TaskCard
+              key={index}
+              cardTitle={task.task}
+              tags={task.tags}
+              handleDelete={handleDelete}
+              index={index}
+            />
           )
       )}
-      <TaskCard />
     </section>
   );
 };

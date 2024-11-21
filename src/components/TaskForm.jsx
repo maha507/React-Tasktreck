@@ -24,7 +24,7 @@ const TaskForm = ({ setTasks }) => {
       });
     }
   };
-  console.log(taskData.tags);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -39,6 +39,11 @@ const TaskForm = ({ setTasks }) => {
     setTasks((prev) => {
       return [...prev, taskData];
     });
+    setTaskData({
+      task: "",
+      status: "todo",
+      tags: [],
+    });
   };
 
   return (
@@ -47,6 +52,7 @@ const TaskForm = ({ setTasks }) => {
         <input
           type="text"
           name="task"
+          value={taskData.task}
           className="task_input"
           placeholder="Enter your task"
           onChange={handleChange}
@@ -77,6 +83,7 @@ const TaskForm = ({ setTasks }) => {
           <div>
             <select
               className="task_status"
+              value={taskData.status}
               onChange={handleChange}
               name="status"
             >
